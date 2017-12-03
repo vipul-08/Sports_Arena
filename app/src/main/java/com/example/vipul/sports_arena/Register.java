@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toolbar;
 
 public class Register extends AppCompatActivity {
 
     EditText fname_input,lname_input,email_input,uname_input,pwd_input;
     Button reg_btn;
+
+    Toolbar toolbar;
 
     String firstName,lastName,userName,eMail,passWord;
 
@@ -26,6 +29,9 @@ public class Register extends AppCompatActivity {
 
         reg_btn = (Button) findViewById(R.id.reg_register_btn);
 
+
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setTitle("Sports_Arena");
 
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override

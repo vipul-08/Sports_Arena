@@ -2,20 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:background="@color/background"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_margin="5dp">
+        android:clickable="true"
+        android:background="?selectableItemBackground"
+        android:layout_margin="5dp"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="8dp">
+            android:id="@+id/recyclerRelative"
+            android:background="@color/background"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
 
             <ImageView
                 android:id="@+id/arenaImageIcon"
@@ -31,7 +37,7 @@
                 android:layout_toRightOf="@id/arenaImageIcon"
                 android:text=""
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:textColor="#ffffff" />
 
             <TextView
                 android:id="@+id/timing"
@@ -40,6 +46,7 @@
                 android:layout_below="@id/arenaName"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:textColor="#ffffff"
                 android:layout_toRightOf="@id/arenaImageIcon"
                 android:text=""
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
@@ -51,8 +58,9 @@
                 android:layout_below="@id/timing"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
+                android:textColor="#ffffff"
                 android:layout_toRightOf="@id/arenaImageIcon"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="5.0"
@@ -67,6 +75,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/arenaImageIcon"
+                android:textColor="#ffffff"
                 android:text=""
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />

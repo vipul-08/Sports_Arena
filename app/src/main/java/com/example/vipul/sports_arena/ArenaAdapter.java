@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,16 +42,24 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
     public ArenaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.list_layout,null);
+        view.setClickable(true);
         return new ArenaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ArenaViewHolder holder, int position) {
+    public void onBindViewHolder(final ArenaViewHolder holder, int position) {
 
-        Arena arena = arenaList.get(position);
+        final Arena arena = arenaList.get(position);
         holder.arenaName.setText(arena.getName());
         holder.arenaTiming.setText(arena.getTiming());
         holder.arenaLocation.setText(arena.getLocation());
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mCtx,"You Clicked:"+arena.getId(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         new DownloadImageTask(holder.imageView).execute("http://sports-arena.stackstaging.com/images/"+arena.getId()+".jpg");
 
@@ -84,11 +94,13 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
     public class ArenaViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
+        RelativeLayout relativeLayout;
         TextView arenaName,arenaTiming,arenaLocation;
 
         public ArenaViewHolder(View itemView) {
 
             super(itemView);
+            relativeLayout = itemView.findViewById(R.id.recyclerRelative);
             imageView=itemView.findViewById(R.id.arenaImageIcon);
             arenaName=itemView.findViewById(R.id.arenaName);
             arenaLocation=itemView.findViewById(R.id.location);
@@ -120,7 +132,8 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
             return mIcon11;
         }
 
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(Bitmap result)
+        {
             bmImage.setImageBitmap(result);
         }
     }

@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.StringRes;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,11 +26,14 @@ import java.util.List;
 import java.util.Vector;
 
 @SuppressWarnings("deprecation")
-public class MainPage extends AppCompatActivity implements TabHost.OnTabChangeListener,ViewPager.OnPageChangeListener{
+public class MainPage extends AppCompatActivity{
 
-    private TabHost tabHost;
+    private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TabsPagerAdapter myTabsAdapter;
+
+    Fragment indoorFragment,outdoorFragment,lanFragment;
+
+    //private TabsPagerAdapter myTabsAdapter;
     int i = 0;
 
     class FakeContent implements TabHost.TabContentFactory
@@ -46,92 +52,86 @@ public class MainPage extends AppCompatActivity implements TabHost.OnTabChangeLi
         }
     }
 
+    Toolbar toolbar;
+    //Toolbar toolbar;
     SharedPreferences.Editor editor;
     TextView textView;
     SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         i++;
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.mymenu);
+        toolbar.getMenu().findItem(R.id.sharedPrefName).setTitle(sharedPreferences.getString("name","0"));
+        toolbar.getMenu().findItem(R.id.logOut).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
 
-        //MenuItem menuItem = (MenuItem) findViewById(R.id.sharedPrefName);
-        //menuItem.setTitle(sharedPreferences.getString("name","0"));
-        this.initializeTabHost(savedInstanceState);
-        this.initializeViewPager();
+                editor.putString("login","0");
+                editor.putString("name",null);
+                editor.putString("email",null);
+                editor.putString("username",null);
+                editor.putString("password",null);
+                editor.apply();
+                startActivity(new Intent(MainPage.this,MainActivity.class));
 
-    }
+                return true;
+            }
+        });
+        //toolbar.setTitle("Sports_Arena");
 
-    private void initializeViewPager() {
-        List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(new Indoor());
-        fragments.add(new Outdoor());
-        fragments.add(new Lan());
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(3);
 
-        this.myTabsAdapter = new TabsPagerAdapter(getSupportFragmentManager(),fragments);
-        this.viewPager = (ViewPager)super.findViewById(R.id.viewPager);
-        this.viewPager.setAdapter(this.myTabsAdapter);
-        this.viewPager.setOnPageChangeListener(this);
 
-        onRestart();
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
 
-    }
 
-    private void initializeTabHost(Bundle args) {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        tabHost = (TabHost)findViewById(android.R.id.tabhost);
-        tabHost.setup();
-        TabHost.TabSpec tabSpec;
+            }
 
-        tabSpec = tabHost.newTabSpec("Indoor");
-        tabSpec.setIndicator("Indoor");
-        tabSpec.setContent(new FakeContent(this));
-        tabHost.addTab(tabSpec);
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.setCurrentItem(position,false);
 
-        tabSpec = tabHost.newTabSpec("Outdoor");
-        tabSpec.setIndicator("Outdoor");
-        tabSpec.setContent(new FakeContent(this));
-        tabHost.addTab(tabSpec);
+            }
 
-        tabSpec = tabHost.newTabSpec("Lan");
-        tabSpec.setIndicator("Lan");
-        tabSpec.setContent(new FakeContent(this));
-        tabHost.addTab(tabSpec);
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-        tabHost.setOnTabChangedListener(this);
+            }
+        });
 
-    }
+        setupViewPager(viewPager);
 
-    @Override
-    public void onTabChanged(String s) {
-        int pos = this.tabHost.getCurrentTab();
-        this.viewPager.setCurrentItem(pos);
-        HorizontalScrollView horizontalScrollView = (HorizontalScrollView) findViewById(R.id.hScrollBarView);
-        View tabView = tabHost.getCurrentTabView();
-        int scrollPos = tabView.getLeft()-(horizontalScrollView.getWidth()-tabView.getWidth())/2;
-        horizontalScrollView.smoothScrollTo(scrollPos,0);
+
+
+
 
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        Log.d("T","State:"+state);
+    private void setupViewPager(ViewPager viewPager)
+    {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        indoorFragment=new Indoor();
+        outdoorFragment=new Outdoor();
+        lanFragment=new Lan();
+        adapter.addFragment(indoorFragment,"INDOOR");
+        adapter.addFragment(outdoorFragment,"OUTDOOR");
+        adapter.addFragment(lanFragment,"LAN");
+        viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        Log.d("T","State:"+position+positionOffset+positionOffsetPixels);
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        Log.d("T","State Selected:"+position);
-        this.tabHost.setCurrentTab(position);
-    }
 
     @Override
     public void onBackPressed() {
@@ -147,43 +147,5 @@ public class MainPage extends AppCompatActivity implements TabHost.OnTabChangeLi
                         finish();
                     }
                 }).setNegativeButton("No", null).show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
-        getMenuInflater().inflate(R.menu.mymenu,menu);
-        //menu.getItem(R.id.sharedPrefName).setTitle(sharedPreferences.getString("name","0"));
-
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
-        menu.findItem(R.id.sharedPrefName).setTitle(sharedPreferences.getString("name","0"));
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        sharedPreferences =getSharedPreferences("userInfo",MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        int id = item.getItemId();
-        switch (id) {
-
-            case R.id.logOut :  editor.putString("login","0");
-                                editor.putString("name",null);
-                                editor.putString("email",null);
-                                editor.putString("username",null);
-                                editor.putString("password",null);
-                                editor.apply();
-                                startActivity(new Intent(MainPage.this,MainActivity.class));
-        }
-        return true;
     }
 }
