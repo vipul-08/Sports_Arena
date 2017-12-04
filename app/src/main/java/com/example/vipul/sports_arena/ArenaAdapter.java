@@ -1,6 +1,7 @@
 package com.example.vipul.sports_arena;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,39 +60,21 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mCtx,"You Clicked:"+arena.getId(),Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mCtx,OnArenaClick.class);
+                intent.putExtra("aid",String.valueOf(arena.getId()));
+                mCtx.startActivity(intent);
+
+                //Toast.makeText(mCtx,"You Clicked:"+arena.getId(),Toast.LENGTH_SHORT).show();
             }
         });
-
-        new DownloadImageTask(holder.imageView).execute("http://sports-arena.stackstaging.com/images/"+arena.getId()+".jpg");
-
-
+        Glide.with(mCtx).load("http://sports-arena.stackstaging.com/images/"+arena.getId()+".jpg").into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
         return arenaList.size();
     }
-
-//    public static Bitmap getBitmapFromURL(String src) {
-//
-//        try {
-//            URL url = new URL(src);
-//            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//            InputStream is = connection.getInputStream();
-//            Bitmap myBitmap = BitmapFactory.decodeStream(is);
-//            return myBitmap;
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//            return null;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     public class ArenaViewHolder extends RecyclerView.ViewHolder{
 
@@ -105,38 +90,6 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
             arenaName=itemView.findViewById(R.id.arenaName);
             arenaLocation=itemView.findViewById(R.id.location);
             arenaTiming=itemView.findViewById(R.id.timing);
-
         }
     }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-
-            this.bmImage = bmImage;
-
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result)
-        {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
-
 }

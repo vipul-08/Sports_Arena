@@ -20,7 +20,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.example.vipul.sports_arena.adapter.TabsPagerAdapter;
 
 import java.util.List;
 import java.util.Vector;

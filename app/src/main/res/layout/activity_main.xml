@@ -59,11 +59,14 @@
         android:hint="Enter your Password"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_background"
         android:textColor="#ffffff"
-        android:background="@color/colorPrimary"
         android:layout_marginTop="15dp"
         android:id="@+id/login_btn"/>
     <LinearLayout
