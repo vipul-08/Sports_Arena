@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context="com.example.vipul.sports_arena.OnArenaClick">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"></include>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clickForGoBack"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:text="GO BACK"
+            android:visibility="gone"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameOfArena"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageOfArena"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timingOfArena"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationOfArena"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clickForReviews"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:text="VIEW FEEDBACKS"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/arenaReviewList"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clickForSubmitFeedback"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:text="SUBMIT FEEDBACK"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clickForBook"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:text="BOOK THIS ARENA"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>
