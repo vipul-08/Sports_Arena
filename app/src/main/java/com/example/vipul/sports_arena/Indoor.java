@@ -147,9 +147,11 @@ public class Indoor extends Fragment {
                     String aloc = jo.optString("location");
                     String atim = jo.optString("timings");
 
+                    String avgRating = jo.optString("avgRating");
+
                     Log.d("Arena",aid+"\n"+aname+"\n"+aloc+"\n"+atim);
 
-                    arenas.add(new Arena(aid, aname, aloc, atim));
+                    arenas.add(new Arena(aid, aname, aloc, atim,avgRating));
                     counterr++;
                     arenaAdapter.notifyDataSetChanged();
                     if(counterr == jsonArray.length()-1) {

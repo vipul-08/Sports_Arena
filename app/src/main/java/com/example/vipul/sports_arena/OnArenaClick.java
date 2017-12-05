@@ -1,15 +1,27 @@
 package com.example.vipul.sports_arena;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.bumptech.glide.Glide;
 
@@ -29,28 +41,55 @@ import okhttp3.Response;
 
 public class OnArenaClick extends AppCompatActivity {
 
-
+    LinearLayout parent;
     Button viewFeedBack,submitFeedback,bookArena,goBack;
-
     TextView arenaName,arenaTime,arenaLocation;
     ImageView arenaImage;
-
     ArenaReviewAdapter adapter;
     List<ArenaReview> list;
-
+    LinearLayout submitFeedbackLayot;
     RecyclerView reviews;
-
     String aid;
+    SharedPreferences sharedPreferences;
+    EditText reviewText;
+    RatingBar bar;
+    Button sbmtFeedback;
 
+    LinearLayout bookingForm;
+    RadioGroup kitsRequired;
+    EditText numPlayers;
+    DatePicker selectDate;
+    TimePicker timeIn,timeOut;
+    Button sbmtBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_arena_click);
 
+        parent = findViewById(R.id.parent);
+
+        reviewText = findViewById(R.id.giveReview);
+        bar = findViewById(R.id.ratingBar);
+        sbmtFeedback = findViewById(R.id.submitFeedback);
+        bookingForm = findViewById(R.id.bookForm);
+        kitsRequired = findViewById(R.id.kitsreq);
+        numPlayers = findViewById(R.id.numPlayers);
+        selectDate = findViewById(R.id.datePick);
+        timeIn = findViewById(R.id.timeIn);
+        timeOut = findViewById(R.id.timeOut);
+        sbmtBook = findViewById(R.id.submitBook);
+
         viewFeedBack = findViewById(R.id.clickForReviews);
         submitFeedback = findViewById(R.id.clickForSubmitFeedback);
         bookArena = findViewById(R.id.clickForBook);
         goBack = findViewById(R.id.clickForGoBack);
+
+        reviewText = findViewById(R.id.giveReview);
+        bar = findViewById(R.id.ratingBar);
+
+
+
+        submitFeedbackLayot = findViewById(R.id.submitFeedbackLayout);
 
         reviews = (RecyclerView) findViewById(R.id.arenaReviewList);
         reviews.setHasFixedSize(false);
@@ -62,17 +101,6 @@ public class OnArenaClick extends AppCompatActivity {
         arenaTime = (TextView) findViewById(R.id.timingOfArena);
         arenaLocation = (TextView) findViewById(R.id.locationOfArena);
         reviews.setAdapter(adapter);
-//        list.add(new ArenaReview("Vipul","Nice","5"));
-//        adapter.notifyDataSetChanged();
-//
-//        list.add(new ArenaReview("Vipul","Nice","5"));
-//        adapter.notifyDataSetChanged();
-//        list.add(new ArenaReview("Vipul","Nice","5"));
-//        adapter.notifyDataSetChanged();
-//        list.add(new ArenaReview("Vipul","Nice","5"));
-//        adapter.notifyDataSetChanged();
-
-
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,14 +111,18 @@ public class OnArenaClick extends AppCompatActivity {
                 arenaLocation.setVisibility(View.VISIBLE);
                 submitFeedback.setVisibility(View.VISIBLE);
                 bookArena.setVisibility(View.VISIBLE);
-
+                bookingForm.setVisibility(View.GONE);
+                parent.setBackgroundColor(Color.parseColor("#484848"));
                 goBack.setVisibility(View.GONE);
                 reviews.setVisibility(View.GONE);
-
+                submitFeedbackLayot.setVisibility(View.GONE);
 
                 viewFeedBack.setVisibility(View.VISIBLE);
             }
         });
+
+
+
 
         viewFeedBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +137,91 @@ public class OnArenaClick extends AppCompatActivity {
                 reviews.setVisibility(View.VISIBLE);
                 goBack.setVisibility(View.VISIBLE);
 
+                bookingForm.setVisibility(View.GONE);
+                viewFeedBack.setVisibility(View.GONE);
+
+            }
+        });
+
+        bookArena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arenaName.setVisibility(View.GONE);
+                arenaImage.setVisibility(View.GONE);
+                parent.setBackgroundColor(Color.parseColor("#ffffff"));
+                arenaTime.setVisibility(View.GONE);
+                arenaLocation.setVisibility(View.GONE);
+                submitFeedback.setVisibility(View.GONE);
+                bookArena.setVisibility(View.GONE);
+                bookingForm.setVisibility(View.VISIBLE);
+                goBack.setVisibility(View.VISIBLE);
+                viewFeedBack.setVisibility(View.GONE);
+
+            }
+        });
+
+        submitFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arenaName.setVisibility(View.GONE);
+                arenaImage.setVisibility(View.GONE);
+                arenaTime.setVisibility(View.GONE);
+                arenaLocation.setVisibility(View.GONE);
+                submitFeedback.setVisibility(View.GONE);
+                bookArena.setVisibility(View.GONE);
+
+                submitFeedbackLayot.setVisibility(View.VISIBLE);
+                goBack.setVisibility(View.VISIBLE);
+
 
                 viewFeedBack.setVisibility(View.GONE);
 
             }
         });
+
+        sbmtFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+
+                new AsyncTask<String,Void,Void>() {
+
+                    @Override
+                    protected Void doInBackground(String... strings) {
+
+                        String postReview,postRating,postClient;
+
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody postData = new FormBody.Builder()
+                                .add("aid",strings[0])
+                                .add("review",strings[2])
+                                .add("rating",strings[3])
+                                .add("name",strings[1])
+                                .build();
+                        Request request = new Request.Builder()
+                                .url("http://sports-arena.stackstaging.com/app/submitFeedback.php")
+                                .post(postData)
+                                .build();
+
+                        try {
+                            client.newCall(request).execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+
+                        startActivity(new Intent(OnArenaClick.this,MainPage.class));
+
+                    }
+                }.execute(aid,sharedPreferences.getString("name","0"),reviewText.getText().toString(),String.valueOf(bar.getRating()));
+            }
+        });
+
 
 
 

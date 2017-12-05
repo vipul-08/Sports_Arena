@@ -56,6 +56,7 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
         holder.arenaName.setText(arena.getName());
         holder.arenaTiming.setText(arena.getTiming());
         holder.arenaLocation.setText(arena.getLocation());
+        holder.arenaRating.setText(arena.getAvgRating());
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,11 +81,12 @@ public class ArenaAdapter extends RecyclerView.Adapter<ArenaAdapter.ArenaViewHol
 
         ImageView imageView;
         RelativeLayout relativeLayout;
-        TextView arenaName,arenaTiming,arenaLocation;
+        TextView arenaName,arenaTiming,arenaLocation,arenaRating;
 
         public ArenaViewHolder(View itemView) {
 
             super(itemView);
+            arenaRating = itemView.findViewById(R.id.avgRating);
             relativeLayout = itemView.findViewById(R.id.recyclerRelative);
             imageView=itemView.findViewById(R.id.arenaImageIcon);
             arenaName=itemView.findViewById(R.id.arenaName);

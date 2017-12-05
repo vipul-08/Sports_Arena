@@ -10,14 +10,15 @@ public class Arena {
     private String name;
     private String location;
     private String timing;
+    private String avgRating;
 
-    public Arena(int id, String name, String location, String timing) {
+    public Arena(int id, String name, String location, String timing, String avgRating) {
         this.id = id;
+        this.avgRating = avgRating;
         this.name = name;
         this.location = location;
         this.timing = timing;
     }
-
 
     public int getId() {
         return id;
@@ -50,4 +51,13 @@ public class Arena {
     public void setTiming(String timing) {
         this.timing = timing;
     }
+
+    public String getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(String avgRating) {
+        this.avgRating = avgRating;
+    }
+
 }

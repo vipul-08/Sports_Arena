@@ -125,8 +125,8 @@ public class MainPage extends AppCompatActivity{
         indoorFragment=new Indoor();
         outdoorFragment=new Outdoor();
         lanFragment=new Lan();
-        adapter.addFragment(indoorFragment,"INDOOR");
         adapter.addFragment(outdoorFragment,"OUTDOOR");
+        adapter.addFragment(indoorFragment,"INDOOR");
         adapter.addFragment(lanFragment,"LAN");
         viewPager.setAdapter(adapter);
     }
@@ -139,11 +139,7 @@ public class MainPage extends AppCompatActivity{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
+                        moveTaskToBack(true);
                     }
                 }).setNegativeButton("No", null).show();
     }

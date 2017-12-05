@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:background="@color/background"
     android:layout_height="match_parent"
@@ -70,6 +71,7 @@
             android:textSize="20sp"/>
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/locationOfArena"
@@ -80,6 +82,7 @@
             android:textStyle="bold"/>
 
         <Button
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/clickForReviews"
@@ -97,8 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/arenaReviewList"
-            android:visibility="gone"
-            android:layout_marginTop="20dp">
+            android:visibility="gone">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -116,6 +118,50 @@
             android:textStyle="bold"
             android:textSize="20sp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:id="@+id/submitFeedbackLayout">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/giveReview"
+                android:singleLine="false"
+                android:background="@drawable/customborder"
+                android:hint="Enter your review"
+                android:lines="5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:max="5"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:stepSize="1"
+                android:rating="0" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/submitFeedback"
+                android:text="Submit"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                android:background="@drawable/button_background"/>
+
+        </LinearLayout>
+
 
 
         <Button
@@ -124,14 +170,136 @@
             android:id="@+id/clickForBook"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+
             android:layout_gravity="center"
             android:background="@drawable/button_background"
             android:text="BOOK THIS ARENA"
             android:layout_marginTop="20dp"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bookForm"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioGroup
+                android:id="@+id/kitsreq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="KITS: "
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+                <RadioButton android:id="@+id/radio_pirates"
+                    android:width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="YES" />
+                <RadioButton android:id="@+id/radio_ninjas"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:text="NO"/>
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. of Players: "
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/numPlayers"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Select Date: "/>
+
+            <DatePicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/datePick"
+                android:spinnersShown="true"
+                android:calendarTextColor="#ffffff"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false">
+
+            </DatePicker>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Select Time In: "/>
+
+            <TimePicker
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:timePickerMode="spinner"
+                android:id="@+id/timeIn">
+
+            </TimePicker>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Select Time Out: "/>
+
+            <TimePicker
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:timePickerMode="spinner"
+                android:id="@+id/timeOut">
+
+            </TimePicker>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/submitBook"
+                android:text="Submit"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                android:background="@drawable/button_background"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
