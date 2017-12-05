@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="10dp"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    android:layout_height="wrap_content">
-
+    android:orientation="vertical">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="@color/background">
+        app:cardBackgroundColor="@color/background"
+        android:background="?selectableItemBackground"
+        android:layout_margin="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:paddingTop="4dp"
+            android:orientation="vertical"
+            android:id="@+id/reviewLinear"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
+            <!--android:id="@+id/recyclerRelative"-->
 
 
-        <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-            android:background="@color/background">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/ratingBy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/reviewLinear"
-                android:layout_margin="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical">
+                android:textColor="#ffffff"
+                android:text=""
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/reviewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_below="@id/ratingBy"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#ffffff" />
+
+            <RatingBar
+                android:id="@+id/reviewRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating= "0"
+                android:layout_below="@id/reviewText"
+                android:layout_centerHorizontal="true"
+                android:clickable="false"
+                android:isIndicator="true"
+                android:focusableInTouchMode="false"
+                android:focusable="false"/>
 
 
-                <TextView
-                    android:id="@+id/ratingBy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text=""
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textStyle="bold" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/reviewText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    android:textColor="#ffffff" />
-
-                <RatingBar
-                    android:id="@+id/reviewRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:rating= "0"
-                    android:clickable="false"
-                    android:isIndicator="true"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"/>
-
-
-            </LinearLayout>
-        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
+

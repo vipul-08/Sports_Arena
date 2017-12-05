@@ -22,6 +22,7 @@
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
+        android:id="@+id/scrollView"
         android:layout_height="fill_parent"
         android:fillViewport="true">
     <LinearLayout
@@ -39,6 +40,7 @@
             android:layout_gravity="center"
             android:background="@drawable/button_background"
             android:text="GO BACK"
+            android:layout_marginBottom="10dp"
             android:visibility="gone"
             android:textColor="#ffffff"
             android:textStyle="bold"
@@ -201,16 +203,18 @@
                     android:textStyle="bold"
                     android:textSize="20dp"/>
                 <RadioButton android:id="@+id/radio_pirates"
-                    android:width="0dp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="YES" />
+                    android:text="YES"
+                    android:tag="1"/>
                 <RadioButton android:id="@+id/radio_ninjas"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:checked="true"
                     android:layout_height="wrap_content"
-                    android:text="NO"/>
+                    android:text="NO"
+                    android:tag="0"/>
             </RadioGroup>
 
             <LinearLayout

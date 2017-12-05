@@ -51,6 +51,7 @@ public class Outdoor extends Fragment {
         outdoorRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         arenaAdapter = new ArenaAdapter(rootView.getContext(), arenas);
+        outdoorRecyclerView.setAdapter(arenaAdapter);
         new FetchData(rootView.getContext()).execute("outdoor");
 
         return rootView;
@@ -145,13 +146,8 @@ public class Outdoor extends Fragment {
                     Log.d("Arena", aid + "\n" + aname + "\n" + aloc + "\n" + atim);
 
                     arenas.add(new Arena(aid, aname, aloc, atim,avgRating));
-                    counterr++;
                     arenaAdapter.notifyDataSetChanged();
-                    if (counterr == jsonArray.length() - 1) {
-                        outdoorRecyclerView.setAdapter(arenaAdapter);
-
-                    }
-
+                    counterr++;
                 }
 
 

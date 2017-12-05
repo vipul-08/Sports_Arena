@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MainPage" />
         <activity android:name=".Register" />
-        <activity android:name=".OnArenaClick"></activity>
+        <activity android:name=".OnArenaClick" />
+        <activity android:name=".MyBookings"></activity>
     </application>
 
 </manifest>

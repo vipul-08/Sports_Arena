@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -49,6 +50,7 @@ public class OnArenaClick extends AppCompatActivity {
     List<ArenaReview> list;
     LinearLayout submitFeedbackLayot;
     RecyclerView reviews;
+    ScrollView scrollView;
     String aid;
     SharedPreferences sharedPreferences;
     EditText reviewText;
@@ -68,6 +70,7 @@ public class OnArenaClick extends AppCompatActivity {
 
         parent = findViewById(R.id.parent);
 
+        scrollView = findViewById(R.id.scrollView);
         reviewText = findViewById(R.id.giveReview);
         bar = findViewById(R.id.ratingBar);
         sbmtFeedback = findViewById(R.id.submitFeedback);
@@ -77,6 +80,8 @@ public class OnArenaClick extends AppCompatActivity {
         selectDate = findViewById(R.id.datePick);
         timeIn = findViewById(R.id.timeIn);
         timeOut = findViewById(R.id.timeOut);
+        timeIn.setIs24HourView(true);
+        timeOut.setIs24HourView(true);
         sbmtBook = findViewById(R.id.submitBook);
 
         viewFeedBack = findViewById(R.id.clickForReviews);
@@ -116,17 +121,69 @@ public class OnArenaClick extends AppCompatActivity {
                 goBack.setVisibility(View.GONE);
                 reviews.setVisibility(View.GONE);
                 submitFeedbackLayot.setVisibility(View.GONE);
-
                 viewFeedBack.setVisibility(View.VISIBLE);
             }
         });
 
+        aid = getIntent().getExtras().getString("aid");
 
+        sbmtBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String kit = findViewById(kitsRequired.getCheckedRadioButtonId()).getTag().toString();
+                sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+                String nm = sharedPreferences.getString("name","0");
+                String email = sharedPreferences.getString("email","0");
+                String playerNum = numPlayers.getText().toString();
+                String date = String.valueOf(selectDate.getDayOfMonth())+"-"+String.valueOf(selectDate.getMonth())+"-"+String.valueOf(selectDate.getYear());
+                String timing = String.valueOf(timeIn.getCurrentHour())+":"+String.valueOf(timeIn.getCurrentMinute())+"-"+String.valueOf(timeOut.getCurrentHour())+":"+String.valueOf(timeOut.getCurrentMinute());
+
+                new AsyncTask<String,Void,Void>() {
+
+
+                    @Override
+                    protected Void doInBackground(String... strings) {
+
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody postData = new FormBody.Builder()
+                                .add("aid",strings[0])
+                                .add("kits",strings[1])
+                                .add("players",strings[2])
+                                .add("date",strings[3])
+                                .add("time",strings[4])
+                                .add("name",strings[5])
+                                .add("email",strings[6])
+                                .build();
+
+                        Request request = new Request.Builder()
+                                .url("http://sports-arena.stackstaging.com/app/submitBooking.php")
+                                .post(postData)
+                                .build();
+
+                        try {
+                            client.newCall(request).execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        startActivity(new Intent(OnArenaClick.this,MainPage.class));
+                    }
+                }.execute(aid,kit,playerNum,date,timing,nm,email);
+
+                //Log.d("POSTDATA:","\n"+kit+"\n"+date+"\n"+timing+"\n"+aid+"\n"+nm+"\n"+email);
+            }
+        });
 
 
         viewFeedBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scrollView.smoothScrollTo(0,0);
                 arenaName.setVisibility(View.GONE);
                 arenaImage.setVisibility(View.GONE);
                 arenaTime.setVisibility(View.GONE);
@@ -146,6 +203,7 @@ public class OnArenaClick extends AppCompatActivity {
         bookArena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scrollView.smoothScrollTo(0,0);
                 arenaName.setVisibility(View.GONE);
                 arenaImage.setVisibility(View.GONE);
                 parent.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -163,6 +221,7 @@ public class OnArenaClick extends AppCompatActivity {
         submitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scrollView.smoothScrollTo(0,0);
                 arenaName.setVisibility(View.GONE);
                 arenaImage.setVisibility(View.GONE);
                 arenaTime.setVisibility(View.GONE);
@@ -189,8 +248,6 @@ public class OnArenaClick extends AppCompatActivity {
 
                     @Override
                     protected Void doInBackground(String... strings) {
-
-                        String postReview,postRating,postClient;
 
                         OkHttpClient client = new OkHttpClient();
                         RequestBody postData = new FormBody.Builder()
@@ -222,12 +279,6 @@ public class OnArenaClick extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        //Bundle extras = getIntent().getExtras();
-        aid = getIntent().getExtras().getString("aid");
 
         Log.d("PASSED VALUE","pValue"+aid);
 

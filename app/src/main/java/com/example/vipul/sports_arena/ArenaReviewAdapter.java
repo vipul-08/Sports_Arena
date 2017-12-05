@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class ArenaReviewAdapter extends RecyclerView.Adapter<ArenaReviewAdapter.
 
     class ReviewsViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout linearLayout;
+        RelativeLayout linearLayout;
         TextView review,reviewer;
         RatingBar ratingBar;
 

@@ -68,6 +68,15 @@ public class MainPage extends AppCompatActivity{
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.mymenu);
         toolbar.getMenu().findItem(R.id.sharedPrefName).setTitle(sharedPreferences.getString("name","0"));
+
+        toolbar.getMenu().findItem(R.id.myBookings).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(MainPage.this,MyBookings.class));
+                return true;
+            }
+        });
+
         toolbar.getMenu().findItem(R.id.logOut).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

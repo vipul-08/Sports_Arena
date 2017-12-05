@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -10,7 +11,9 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="?selectableItemBackground"
+        android:contextClickable="true"
+        app:cardBackgroundColor="@color/background"
+        android:background="?android:selectableItemBackground"
         android:layout_margin="5dp"
         >
 
@@ -18,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerRelative"
-            android:background="@color/background"
+            android:background="@drawable/customborder"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
