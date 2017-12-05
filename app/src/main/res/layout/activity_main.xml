@@ -80,13 +80,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
+            android:textSize="20sp"
             android:text="Not a member?"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/register_btn"
-            android:text="Register Now"
-            android:clickable="true"
+            android:text="@string/register_now"
+            android:focusableInTouchMode="true"
+            android:textSize="20sp"
             android:textColor="#a30000"/>
 
     </LinearLayout>

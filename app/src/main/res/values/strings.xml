@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Sports_Arena</string>
+
+    <string name="register_now"><u>Register Now</u></string>
+
+    <string name="no_internet"><div style='border:3px solid #000'>
+        --> Check the address for typing errors such as ww.example.com instead of www.example.com<br />
+        --> If you are unable to load any pages, check your computer’s network connection.<br />
+        --> If your computer or network is protected by a firewall or proxy, make sure that Waterfox is permitted to access the Web.
+        </div>
+    </string>
 </resources>

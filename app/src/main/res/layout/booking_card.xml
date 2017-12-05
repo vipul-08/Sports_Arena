@@ -9,81 +9,87 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
         android:clickable="true"
         android:focusable="true"
-        android:contextClickable="true"
-        app:cardCornerRadius="20dp"
+        android:id="@+id/cardBooking"
         app:cardBackgroundColor="@color/background"
-        android:background="?android:selectableItemBackground"
+        android:background="?selectableItemBackground"
         android:layout_margin="5dp"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recyclerRelative"
             android:background="@drawable/customborder"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp">
+            <!--android:id="@+id/recyclerRelative"-->
+
 
             <ImageView
-                android:id="@+id/arenaImageIcon"
+                android:id="@+id/arenaBookedImage"
                 android:layout_width="120dp"
+                android:layout_centerVertical="true"
                 android:layout_height="90dp"
                 android:padding="4dp" />
 
             <TextView
-                android:id="@+id/arenaName"
+                android:id="@+id/arenaBookedName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/arenaImageIcon"
+                android:layout_marginStart="5dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/arenaBookedImage"
                 android:text=""
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#ffffff" />
 
             <TextView
-                android:id="@+id/timing"
+                android:id="@+id/arenaBookedDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/arenaName"
-                android:layout_marginLeft="5dp"
+                android:layout_below="@id/arenaBookedName"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
-                android:layout_toRightOf="@id/arenaImageIcon"
-                android:text=""
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:layout_toEndOf="@id/arenaBookedImage"
+                android:text="" />
 
             <TextView
-                android:id="@+id/avgRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/timing"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:textColor="#ffffff"
-                android:layout_toRightOf="@id/arenaImageIcon"
-                android:background="@color/colorPrimaryDark"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="5.0"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/location"
+                android:id="@+id/arenaBookedTiming"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/avgRating"
-                android:layout_marginLeft="5dp"
+                android:layout_below="@id/arenaBookedDate"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/arenaImageIcon"
                 android:textColor="#ffffff"
-                android:text=""
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="bold" />
+                android:layout_toEndOf="@id/arenaBookedImage"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/arenaBookedNumPlayers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arenaBookedTiming"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/arenaBookedImage"
+                android:textColor="#ffffff"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/arenaBookedKitStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arenaBookedNumPlayers"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/arenaBookedImage"
+                android:textColor="#ffffff"
+                android:text="" />
 
         </RelativeLayout>
 

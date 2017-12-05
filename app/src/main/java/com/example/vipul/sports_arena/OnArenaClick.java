@@ -1,9 +1,16 @@
 package com.example.vipul.sports_arena;
 
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +30,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 
@@ -57,6 +65,7 @@ public class OnArenaClick extends AppCompatActivity {
     RatingBar bar;
     Button sbmtFeedback;
 
+    android.support.v7.widget.Toolbar toolbar;
     LinearLayout bookingForm;
     RadioGroup kitsRequired;
     EditText numPlayers;
@@ -68,7 +77,27 @@ public class OnArenaClick extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_arena_click);
 
+        if(! isNetworkStatusAvialable (getApplicationContext())){
+
+            new AlertDialog.Builder(this).setIcon(R.mipmap.football).setTitle("No Internet")
+                    .setMessage("Please check your Internet Connection..")
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            moveTaskToBack(true);
+                        }
+                    }).show();
+
+        }
+
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         parent = findViewById(R.id.parent);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         scrollView = findViewById(R.id.scrollView);
         reviewText = findViewById(R.id.giveReview);
@@ -80,10 +109,10 @@ public class OnArenaClick extends AppCompatActivity {
         selectDate = findViewById(R.id.datePick);
         timeIn = findViewById(R.id.timeIn);
         timeOut = findViewById(R.id.timeOut);
-        timeIn.setIs24HourView(true);
-        timeOut.setIs24HourView(true);
         sbmtBook = findViewById(R.id.submitBook);
 
+        timeIn.setIs24HourView(true);
+        timeOut.setIs24HourView(true);
         viewFeedBack = findViewById(R.id.clickForReviews);
         submitFeedback = findViewById(R.id.clickForSubmitFeedback);
         bookArena = findViewById(R.id.clickForBook);
@@ -106,6 +135,7 @@ public class OnArenaClick extends AppCompatActivity {
         arenaTime = (TextView) findViewById(R.id.timingOfArena);
         arenaLocation = (TextView) findViewById(R.id.locationOfArena);
         reviews.setAdapter(adapter);
+
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,5 +371,57 @@ public class OnArenaClick extends AppCompatActivity {
                 }
             }
         }.execute(aid);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
+    public static boolean isNetworkStatusAvialable (Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null)
+        {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if(netInfos != null)
+                if(netInfos.isConnected())
+                    return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        arenaName = (TextView) findViewById(R.id.nameOfArena);
+        goBack = findViewById(R.id.clickForGoBack);
+        viewFeedBack = findViewById(R.id.clickForReviews);
+        submitFeedback = findViewById(R.id.clickForSubmitFeedback);
+        bookArena = findViewById(R.id.clickForBook);
+        submitFeedbackLayot = findViewById(R.id.submitFeedbackLayout);
+        reviews = (RecyclerView) findViewById(R.id.arenaReviewList);
+        bookingForm = findViewById(R.id.bookForm);
+        arenaImage = (ImageView) findViewById(R.id.imageOfArena);
+        arenaTime = (TextView) findViewById(R.id.timingOfArena);
+        parent = findViewById(R.id.parent);
+
+        if(arenaName.getVisibility()==View.VISIBLE) {
+            finish();
+        }
+        else {
+            arenaName.setVisibility(View.VISIBLE);
+            arenaImage.setVisibility(View.VISIBLE);
+            arenaTime.setVisibility(View.VISIBLE);
+            arenaLocation.setVisibility(View.VISIBLE);
+            submitFeedback.setVisibility(View.VISIBLE);
+            bookArena.setVisibility(View.VISIBLE);
+            bookingForm.setVisibility(View.GONE);
+            parent.setBackgroundColor(Color.parseColor("#484848"));
+            goBack.setVisibility(View.GONE);
+            reviews.setVisibility(View.GONE);
+            submitFeedbackLayot.setVisibility(View.GONE);
+            viewFeedBack.setVisibility(View.VISIBLE);
+        }
     }
 }
