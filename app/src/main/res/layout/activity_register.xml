@@ -24,63 +24,78 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register in Sports_Arena"
-        android:textColor="#000000"
-        android:textSize="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register in Sports_Arena"
+            android:textColor="#000000"
+            android:textSize="30dp"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:id="@+id/reg_fname_input"
-        android:padding="8dp"
-        android:hint="Enter your First Name"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_lname_input"
-        android:padding="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="Enter your last name"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_email_input"
-        android:padding="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="Enter your Email"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_username_input"
-        android:padding="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="Enter your Username"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_password_input"
-        android:padding="8dp"
-        android:layout_marginTop="16dp"
-        android:inputType="textPassword"
-        android:hint="Enter your Password"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:padding="8dp"
-        android:textColor="#ffffff"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:layout_gravity="center"
-        android:background="@drawable/button_background"
-        android:layout_marginTop="30dp"
-        android:id="@+id/reg_register_btn"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:id="@+id/reg_fname_input"
+            android:padding="8dp"
+            android:hint="Enter your First Name"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_lname_input"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:hint="Enter your last name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_email_input"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:hint="Enter your Email"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_username_input"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:hint="Enter your Username"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_password_input"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:inputType="textPassword"
+            android:hint="Enter your Password"/>
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            android:id="@+id/avlRegister"
+            app:indicatorColor="#a30000"
+            android:layout_marginTop="10px"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallClipRotateIndicator"
+            android:layout_gravity="center"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:visibility="gone" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:padding="8dp"
+            android:textColor="#ffffff"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="30dp"
+            android:id="@+id/reg_register_btn"/>
+
+
 
     </LinearLayout>
 

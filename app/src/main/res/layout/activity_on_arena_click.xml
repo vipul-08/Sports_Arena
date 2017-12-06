@@ -11,6 +11,7 @@
     android:scrollbars="vertical"
     tools:context="com.example.vipul.sports_arena.OnArenaClick">
 
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -45,6 +46,17 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            android:id="@+id/avl"
+            app:indicatorColor="#ffffff"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallClipRotateIndicator"
+            android:layout_gravity="center"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:visibility="gone"/>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -90,6 +102,7 @@
             android:id="@+id/clickForReviews"
             android:layout_marginTop="20dp"
             android:paddingStart="20dp"
+            android:visibility="gone"
             android:paddingEnd="20dp"
             android:layout_gravity="center"
             android:background="@drawable/button_background"
@@ -112,6 +125,7 @@
             android:id="@+id/clickForSubmitFeedback"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:background="@drawable/button_background"
             android:text="SUBMIT FEEDBACK"
@@ -172,7 +186,7 @@
             android:id="@+id/clickForBook"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-
+            android:visibility="gone"
             android:layout_gravity="center"
             android:background="@drawable/button_background"
             android:text="BOOK THIS ARENA"

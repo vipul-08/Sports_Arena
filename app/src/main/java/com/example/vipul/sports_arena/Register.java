@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toolbar;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 public class Register extends AppCompatActivity {
 
     EditText fname_input,lname_input,email_input,uname_input,pwd_input;
     Button reg_btn;
+    static AVLoadingIndicatorView avlRegister;
 
     android.support.v7.widget.Toolbar toolbar;
 
@@ -26,25 +29,13 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        avlRegister = findViewById(R.id.avlRegister);
         fname_input = (EditText) findViewById(R.id.reg_fname_input);
         lname_input = (EditText) findViewById(R.id.reg_lname_input);
         email_input = (EditText) findViewById(R.id.reg_email_input);
         uname_input = (EditText) findViewById(R.id.reg_username_input);
         pwd_input = (EditText) findViewById(R.id.reg_password_input);
-
-        if(! isNetworkStatusAvialable (getApplicationContext())){
-
-            new AlertDialog.Builder(this).setIcon(R.mipmap.football).setTitle("No Internet")
-                    .setMessage("Please check your Internet Connection..")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            moveTaskToBack(true);
-                        }
-                    }).show();
-
-        }
-
 
         reg_btn = (Button) findViewById(R.id.reg_register_btn);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -69,23 +60,11 @@ public class Register extends AppCompatActivity {
 
                 //startActivity(new Intent(Register.this,MainPage.class));
                 RegisterTask registerTask = new RegisterTask(Register.this);
-                registerTask.execute(firstName,lastName,eMail,userName,passWord);
+                registerTask.execute(firstName, lastName, eMail, userName, passWord);
+
             }
         });
 
-    }
-
-
-    public static boolean isNetworkStatusAvialable (Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null)
-        {
-            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
-                    return true;
-        }
-        return false;
     }
 
     @Override

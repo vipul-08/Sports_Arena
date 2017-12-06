@@ -33,6 +33,7 @@ import android.widget.TimePicker;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,28 +73,19 @@ public class OnArenaClick extends AppCompatActivity {
     DatePicker selectDate;
     TimePicker timeIn,timeOut;
     Button sbmtBook;
+
+    AVLoadingIndicatorView avl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_arena_click);
 
-        if(! isNetworkStatusAvialable (getApplicationContext())){
-
-            new AlertDialog.Builder(this).setIcon(R.mipmap.football).setTitle("No Internet")
-                    .setMessage("Please check your Internet Connection..")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            moveTaskToBack(true);
-                        }
-                    }).show();
-
-        }
-
-
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        avl = findViewById(R.id.avl);
 
         parent = findViewById(R.id.parent);
 
@@ -170,6 +162,10 @@ public class OnArenaClick extends AppCompatActivity {
 
                 new AsyncTask<String,Void,Void>() {
 
+                    @Override
+                    protected void onPreExecute() {
+                        avl.setVisibility(View.VISIBLE);
+                    }
 
                     @Override
                     protected Void doInBackground(String... strings) {
@@ -201,6 +197,7 @@ public class OnArenaClick extends AppCompatActivity {
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
+                        avl.setVisibility(View.GONE);
                         startActivity(new Intent(OnArenaClick.this,MainPage.class));
                     }
                 }.execute(aid,kit,playerNum,date,timing,nm,email);
@@ -277,6 +274,11 @@ public class OnArenaClick extends AppCompatActivity {
                 new AsyncTask<String,Void,Void>() {
 
                     @Override
+                    protected void onPreExecute() {
+                        avl.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
                     protected Void doInBackground(String... strings) {
 
                         OkHttpClient client = new OkHttpClient();
@@ -302,6 +304,7 @@ public class OnArenaClick extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Void aVoid) {
 
+                        avl.setVisibility(View.GONE);
                         startActivity(new Intent(OnArenaClick.this,MainPage.class));
 
                     }
@@ -315,6 +318,10 @@ public class OnArenaClick extends AppCompatActivity {
         new AsyncTask<String, Void, String>() {
 
 
+            @Override
+            protected void onPreExecute() {
+                avl.setVisibility(View.VISIBLE);
+            }
 
             @Override
             protected String doInBackground(String... strings) {
@@ -322,6 +329,7 @@ public class OnArenaClick extends AppCompatActivity {
                 String postData = strings[0];
                 try
                 {
+
                     OkHttpClient client = new OkHttpClient();
                     RequestBody postWebData = new FormBody.Builder().add("aid", postData).build();
 
@@ -339,6 +347,11 @@ public class OnArenaClick extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String s) {
+
+                avl.setVisibility(View.GONE);
+                findViewById(R.id.clickForBook).setVisibility(View.VISIBLE);
+                findViewById(R.id.clickForSubmitFeedback).setVisibility(View.VISIBLE);
+                findViewById(R.id.clickForReviews).setVisibility(View.VISIBLE);
 
                 try{
 

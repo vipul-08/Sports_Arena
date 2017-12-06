@@ -66,19 +66,6 @@ public class MainPage extends AppCompatActivity{
         setContentView(R.layout.activity_main_page);
         sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        if(! isNetworkStatusAvialable (getApplicationContext())){
-
-            new AlertDialog.Builder(this).setIcon(R.mipmap.football).setTitle("No Internet")
-                    .setMessage("Please check your Internet Connection..")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            moveTaskToBack(true);
-                        }
-                    }).show();
-
-        }
-
         i++;
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.mymenu);
@@ -149,19 +136,6 @@ public class MainPage extends AppCompatActivity{
         adapter.addFragment(indoorFragment,"INDOOR");
         adapter.addFragment(lanFragment,"LAN");
         viewPager.setAdapter(adapter);
-    }
-
-
-    public static boolean isNetworkStatusAvialable (Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null)
-        {
-            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
-                    return true;
-        }
-        return false;
     }
 
 

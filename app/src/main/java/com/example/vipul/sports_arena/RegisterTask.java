@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,6 +36,7 @@ public class RegisterTask extends AsyncTask<String,Void,String>{
     protected void onPreExecute() {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Registration Details");
+        Register.avlRegister.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -91,6 +93,8 @@ public class RegisterTask extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPostExecute(String s) {
+
+        Register.avlRegister.setVisibility(View.GONE);
         if(s.equals("1")) {
             context.startActivity(new Intent(context,MainActivity.class));
         }

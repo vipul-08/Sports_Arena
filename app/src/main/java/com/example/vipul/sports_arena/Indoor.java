@@ -54,8 +54,8 @@ public class Indoor extends Fragment {
         indoorRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         arenaAdapter = new ArenaAdapter(rootView.getContext(), arenas);
-        new FetchData(rootView.getContext()).execute("indoor");
 
+        new FetchData(rootView.getContext()).execute("indoor");
         Log.d("FIN","FINISHED");
 
         return rootView;

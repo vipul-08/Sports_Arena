@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     EditText username_input,password_input;
     Button login_btn;
     Toolbar toolbar;
+    static AVLoadingIndicatorView avlLogin;
     String username , password;
 
     String login;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        avlLogin = findViewById(R.id.avlLogin);
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setTitle("Sports_Arena");
 
@@ -46,18 +50,6 @@ public class MainActivity extends AppCompatActivity {
         login = sharedPreferences.getString("login","0");
         editor = sharedPreferences.edit();
 
-        if(! isNetworkStatusAvialable (getApplicationContext())){
-
-            new AlertDialog.Builder(this).setIcon(R.mipmap.football).setTitle("No Internet")
-                    .setMessage("Please check your Internet Connection..")
-                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            moveTaskToBack(true);
-                        }
-                    }).show();
-
-        }
 
         if("1".equals(login)) {
             startActivity(new Intent(MainActivity.this,MainPage.class));
@@ -85,18 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public static boolean isNetworkStatusAvialable (Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null)
-        {
-            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
-                    return true;
-        }
-        return false;
     }
 
     @Override

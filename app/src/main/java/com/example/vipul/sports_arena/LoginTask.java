@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,11 +31,11 @@ import java.net.URLEncoder;
 
 public class LoginTask extends AsyncTask<String,Void,String> {
 
-
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     AlertDialog alertDialog;
     Context context;
+
 
     String username,password;
 
@@ -43,6 +47,7 @@ public class LoginTask extends AsyncTask<String,Void,String> {
     protected void onPreExecute() {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Login Details");
+        MainActivity.avlLogin.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -88,7 +93,6 @@ public class LoginTask extends AsyncTask<String,Void,String> {
             e.printStackTrace();
         }
 
-
         return null;
     }
 
@@ -100,6 +104,7 @@ public class LoginTask extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String s) {
 
+        MainActivity.avlLogin.setVisibility(View.GONE);
         JSONObject json;
         try {
             json = new JSONObject(s);

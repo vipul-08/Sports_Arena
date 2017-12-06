@@ -69,7 +69,20 @@
         android:textColor="#ffffff"
         android:layout_marginTop="15dp"
         android:id="@+id/login_btn"/>
-    <LinearLayout
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            android:id="@+id/avlLogin"
+            app:indicatorColor="#a30000"
+            android:layout_marginTop="10px"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallClipRotateIndicator"
+            android:layout_gravity="center"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:visibility="gone" />
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -92,5 +105,9 @@
             android:textColor="#a30000"/>
 
     </LinearLayout>
+
+
+
+
     </LinearLayout>
 </LinearLayout>

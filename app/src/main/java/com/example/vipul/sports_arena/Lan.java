@@ -54,7 +54,6 @@ public class Lan extends Fragment{
         new FetchData(rootView.getContext()).execute("lan");
 
 
-
         return rootView;
     }
     public class FetchData extends AsyncTask<String,Void,String> {

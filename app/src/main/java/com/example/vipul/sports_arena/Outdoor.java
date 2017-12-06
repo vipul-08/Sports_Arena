@@ -1,6 +1,8 @@
 package com.example.vipul.sports_arena;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,7 +55,6 @@ public class Outdoor extends Fragment {
         arenaAdapter = new ArenaAdapter(rootView.getContext(), arenas);
         outdoorRecyclerView.setAdapter(arenaAdapter);
         new FetchData(rootView.getContext()).execute("outdoor");
-
         return rootView;
     }
 
